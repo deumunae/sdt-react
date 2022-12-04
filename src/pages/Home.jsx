@@ -54,9 +54,8 @@ export const Home = () => {
         {num: Num3, img: Hiw3, text:'To give SDT students a chance to use their skills and abilities in addition to studying for self-development and creating their own projects.'},
     ]
     const reports = [
-        {name: 'Successful startup', img: event1, text: 'Amet, viverra nec sed in massa nibh. Magna dapibus auctor velit, est, mattis urna. Malesuada amet nisi libero, urna tristique aliquam. '},
-        {name: 'Generation The Flow', img: event2, text: 'Amet, viverra nec sed in massa nibh. Magna dapibus auctor velit, est, mattis urna. Malesuada amet nisi libero, urna tristique aliquam. '},
-        {name: 'Hackaton 2022', img: event3, text: 'Amet, viverra nec sed in massa nibh. Magna dapibus auctor velit, est, mattis urna. Malesuada amet nisi libero, urna tristique aliquam. '},
+
+        {name: 'Успешные программисты-подростки', img: event2, text: 'Успешные программисты-подростки. Встреча с МОТИН ДЕНИС СЕРГЕЕВИЧЕМ. Дата: 07.12.2022 Время 14:20 Аудитория: 301 '},
     ];
     return(
         <>
@@ -87,9 +86,7 @@ export const Home = () => {
                             Expand your horizons, gain knowledge, and create future with us.
                         </Typography>
 
-                        <Button className={'filled'} sx={{mt: 4}} href={'#bidding_form'}>
-                            Join
-                        </Button>
+
                         {/*<Typography*/}
                         {/*    variant={"subtitle1"}*/}
                         {/*    sx={{mt: 6,}}>*/}
@@ -284,7 +281,6 @@ export const Home = () => {
 
 
 
-                <OrderForm/>
             </Box>
         </>
 

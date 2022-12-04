@@ -60,10 +60,10 @@ export const Footer = () => {
                                         All Rights Reserved,  SDT  Innovation Club
                                     </Typography>
                                     <Typography variant="body2" sx={{mr:3}} align={'left'} >
-                                        <a style={{textDecoration:'none', color:'white'}} href = "mailto:info@tds.bid?subject = Support&body = Message">info@tds.bid</a>
+                                        <a style={{textDecoration:'none', color:'white'}} href = "mailto:info@sdt.bid?subject = Support&body = Message">info@std.bid</a>
                                     </Typography>
                                     <Typography variant="body2" sx={{mr:3}} align={'left'}>
-                                        <a style={{textDecoration:'none', color:'white'}} href="tel:+6583387195">+65 8338 7195</a>
+                                        <a style={{textDecoration:'none', color:'white'}} href="tel:+6583387195">+7 775 386 5386</a>
                                     </Typography>
                                 </Box>
                             </div>

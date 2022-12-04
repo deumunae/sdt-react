@@ -20,7 +20,7 @@ import axios from "axios";
 const pages = [
     {title: 'Home', link: '/'},
     {title: 'Things we do', link: '/#advantages'},
-    {title: 'How it works', link: '/#howitworks'},];
+    {title: 'Our Initatives', link: '/#howitworks'},];
 
 export const Header = () => {
     const history = useNavigate();
