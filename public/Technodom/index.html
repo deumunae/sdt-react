@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+        <html>
+            <head>
+                <meta name="ad.size" content="width=240,height=400">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+                <meta name="description" content="adfox_template">
+                <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+                <link rel="stylesheet" type="text/css" href="style.css">
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+                <script>
+                    var pic1FullPath = "img/img1.jpg";
+                    var pic2FullPath = "img/img2.jpg";
+                </script>
+            </head>
+            <body id="body" style="position:relative;margin:0 auto;width:240px;height:400px">
+                <div id="adArea" class="rct opacity0">
+                    <div id="bg1" class="bg1 noVis"></div>
+                    <div id="bg2" class="bg2 noVis"></div>
+                    <div id="mainCont" class="rct"></div>
+                </div>
+
+
+                <script >
+                    var def = {
+    c: 3,
+    r: 4,
+    w: 240,
+    h: 400,
+    cube: {
+        amm: 0,
+        w: 0,
+        h: 150,
+        z: 80,
+        list: [],
+    }
+};
+
+var o = {};
+
+var flashVars = {
+      reference: "%request.reference%",
+      link: "%banner.user1%",
+      target: "%banner.target%",
+      rnd: parseInt("%request.place_random%") || parseInt("%system.random%"),
+      events: [
+            "",
+            "%banner.event1%",
+            "%banner.event2%",
+            "%banner.event3%",
+            "%banner.event4%",
+            "%banner.event5%",
+            "%banner.event6%",
+            "%banner.event7%",
+            "%banner.event8%",
+            "%banner.event9%",
+            "%banner.event10%",
+            "%banner.event11%",
+            "%banner.event12%",
+            "%banner.event13%",
+            "%banner.event14%",
+            "%banner.event15%",
+            "%banner.event16%",
+            "%banner.event17%",
+            "%banner.event18%",
+            "%banner.event19%",
+            "%banner.event20%",
+            "%banner.event21%",
+            "%banner.event22%",
+            "%banner.event23%",
+            "%banner.event24%",
+            "%banner.event25%",
+            "%banner.event26%",
+            "%banner.event27%",
+            "%banner.event28%",
+            "%banner.event29%",
+            "%banner.event30%"
+      ]
+    };
+function callClick(n) {
+      var link = ( n ? flashVars.events[n] : flashVars.link );
+      window.open(flashVars.reference + "@" + link, flashVars.target);
+}
+function callEvent(n) {
+      (new Image()).src = flashVars.events[n]; 
+}
+
+var oNames = {
+    id: 'adArea mainCont',
+};
+
+function init() {
+    prepareData();
+    createCubes();
+
+    setTimeout(function () {
+            rotateCubes(true)
+        }
+        , 1500);
+}
+
+function prepareData() {
+    def.cube.w = Math.round(def.w / def.c);
+    //console.log(def.cube.w);
+    def.cube.h = Math.round(def.h / def.r);
+    def.cube.amm = def.r * def.c;
+
+}
+
+function createCubes() {
+    for (var r = 0; r < def.r; r++) {
+        for (var c = 0; c < def.c; c++) {
+            createCube(r, c);
+        }
+    }
+}
+
+function createCube(r, c) {
+    var add = {x: 1, y: 1};
+    if (r == def.r - 1) {
+        add.y += -1;
+    }
+    if (c == def.c - 1) {
+        add.x += -1;
+    }
+
+    var w = def.cube.w;
+    var h = def.cube.h;
+    var z = def.cube.z;
+    console.log(z)
+    var sideCol = "rgba(227,227,227,0.1)";
+    var sideGrad = "radial-gradient(rgba(227,227,227,1) 0%, rgba(1,1,1,1) 300%)";
+
+    var cube = document.createElement("div");
+    cube.classList.add("cube");
+    setCubeSize(cube, {x: 0, y: 0});
+    cube.style.left = c * w + "px";
+    cube.style.top = r * h + "px";
+
+    TweenMax.set(cube, {z: -z / 2});
+
+    var frontFace = document.createElement("div");
+    frontFace.classList.add("face");
+    frontFace.classList.add("bg1");
+    setCubeSize(frontFace, add);
+    frontFace.style.backgroundImage = "url( " + pic1FullPath + " )";
+    frontFace.style.backgroundPosition = (-c * w) + "px " + (-r * h) + "px";
+    frontFace.style.backgroundRepeat = "no-repeat";
+    TweenMax.set(frontFace, {z: z / 2});
+    cube.appendChild(frontFace);
+
+    var leftFace = document.createElement("div");
+    leftFace.classList.add("face");
+    setSideSize(leftFace, add);
+    TweenMax.set(leftFace, {rotationY: 90, z: z / 2, transformOrigin: "0% 0%"});
+    setBgImage(leftFace, sideCol, sideGrad);
+    cube.appendChild(leftFace);
+
+    var rightFace = document.createElement("div");
+    rightFace.classList.add("face");
+    setSideSize(rightFace, add);
+    TweenMax.set(rightFace, {rotationY: 90, z: z / 2, x: w + 1, transformOrigin: "0% 0%"});
+    rightFace.style.backgroundImage = "url( " + pic2FullPath + " )";
+    rightFace.style.backgroundPosition = (-c * w) + "px " + (-r * h) + "px";
+    rightFace.style.backgroundRepeat = "no-repeat";
+    cube.appendChild(rightFace);
+
+    var backFace = document.createElement("div");
+    backFace.classList.add("face");
+    setCubeSize(backFace, add);
+    TweenMax.set(backFace, {scaleX: -1, rotationY: 0, z: -z - 1 + z / 2});
+    setBgImage(backFace, sideCol, sideGrad);
+    cube.appendChild(backFace);
+
+    var topFace = document.createElement("div");
+    topFace.classList.add("face");
+    setFloorSize(topFace, add);
+    TweenMax.set(topFace, {rotationX: 90, rotationY: 90, z: z / 2, transformOrigin: "0% 0%"});
+    setBgImage(topFace, sideCol, sideGrad);
+    cube.appendChild(topFace);
+
+    var bottomFace = document.createElement("div");
+    bottomFace.classList.add("face");
+    setFloorSize(bottomFace, add);
+    TweenMax.set(bottomFace, {rotationX: 90, rotationY: 90, z: z / 2, y: h + 1, transformOrigin: "0% 0%"});
+    setBgImage(bottomFace, sideCol, sideGrad);
+    cube.appendChild(bottomFace);
+
+    o.mainCont.appendChild(cube);
+    def.cube.list.push(cube);
+}
+
+function setBgImage(el, color, gradient) {
+    el.style.backgroundColor = color;
+}
+
+function setCubeSize(el, add) {
+    el.style.width = def.cube.w + add.x + "px";
+    el.style.height = def.cube.h + add.y + "px";
+}
+
+function setSideSize(el, add) {
+    el.style.width = def.cube.z + add.x + "px";
+    el.style.height = def.cube.h + add.y + "px";
+
+}
+
+function setFloorSize(el, add) {
+    el.style.width = def.cube.z + add.x + "px";
+    el.style.height = def.cube.w + add.y + "px";
+
+
+
+}
+
+var a = {
+    s1: 0.5,
+    s2: 1,
+    delAdd: 0.06,
+    d0: 0.6,
+    d1: 2,
+    d2: 1.2,
+    dist: 1500,
+    dist2: -30000,
+    e1: Power2.easeIn,
+    e2: Power2.easeOut,
+    e3: Back.easeOut.config(0.35),
+    to: "50% 50% 50%",
+};
+
+function rotateCubes(side) {
+
+    for (var c = 0; c < def.cube.amm; c++) {
+        var cube = def.cube.list[c];
+        var delay = 0 + c * a.delAdd;
+
+        var curRot = (side) ? 0 : -90;
+        var endRot = (side) ? -90 : 0;
+        var midRot = (curRot + endRot) / 2;
+
+        TweenMax.to(cube, a.d0, {
+            delay: delay, scaleX: a.s1, scaleY: a.s1, scaleZ: a.s1, ease: Power1.easeInOut, onComplete: function () {
+                TweenMax.to(this.target, a.d0, {scaleX: 1, scaleY: 1, scaleZ: 1, ease: Power1.easeInOut});
+            }
+        });
+
+        TweenMax.to(cube, a.d0, {
+            delay: delay, rotationY: midRot, ease: a.e1, onComplete: function () {
+                TweenMax.to(this.target, a.d0, {rotationY: endRot, ease: a.e2});
+            }
+        });
+    }
+
+    setTimeout(function () {
+        rotateCubes(!side);
+    }, def.cube.amm * a.delAdd * 1000 + 2500);
+
+}
+
+
+
+window.requestAnimFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (/* function */ callback, /* DOMElement */ element) {
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
+
+function initLoad() {
+    prepareElements();
+    init();
+    // loadAsset(assets.init);
+
+}
+
+function prepareElements() {
+// id
+    var names = oNames.id.split(' ');
+    for (var i = 0; i < names.length; i++) {
+        var name = names[i];
+        o[name] = document.getElementById(name);
+    }
+}
+
+
+
+
+Object.size = function (obj) { 
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    //console.log(size)
+    return size;
+};
+
+if (window.addEventListener) {
+    window.addEventListener('load', initLoad(), false);
+} else if (window.attachEvent) {
+    window.attachEvent('onload', initLoad());
+}
+
+
+
+                </script>
+
+  <script type="text/javascript">
+    var elem = document.getElementsByTagName("body")[0];
+    elem.style.cursor = "pointer";
+    elem.addEventListener("click", function(){
+      callClick();
+    }, false);
+</script>
+            
+
+                ​
+            </body>
+        </html>
+    

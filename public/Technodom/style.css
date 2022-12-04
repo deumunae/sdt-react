@@ -1,0 +1,69 @@
+#body {
+    margin: 0;
+    padding: 0;
+}
+
+#adArea {
+    background: #ffffff;
+    overflow: hidden;
+    text-overflow: clip;
+    cursor: pointer;
+    /*border: 1px solid black;*/
+}
+
+#mainCont {
+    -webkit-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    position: absolute;
+    -webkit-perspective: 600px;
+    -ms-perspective: 600px;
+    perspective: 600px;
+    perspective-origin: 50% 50%;
+    -webkit-perspective-origin: 50% 50%;
+    -ms-perspective-origin: 50% 50%;
+}
+
+.cube {
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transform-origin: 50% 50%;
+    -webkit-perspective-origin: 50% 50%;
+    -ms-perspective-origin: 50% 50%;
+    transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+    -webkit-transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+    -ms-transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+}
+
+.face {
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-perspective: 600px;
+    -ms-perspective: 600px;
+    perspective: 600px;
+    perspective-origin: 50% 100px;
+    -webkit-perspective-origin: 50% 100px;
+    -ms-perspective-origin: 50% 100px;
+}
+
+
+.center {
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.abs {
+    position: absolute;
+}
+
+.rct {
+    width: 240px;
+    height: 400px;
+    position: absolute;
+}
