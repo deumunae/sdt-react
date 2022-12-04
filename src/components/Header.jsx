@@ -25,6 +25,7 @@ const pages = [
 export const Header = () => {
     const history = useNavigate();
     const [open, setOpen] = useState(false);
+    const [enter, setEnter] = useState(localStorage.getItem('STDAccessToken') ? (localStorage.getItem('STDAccessToken')): null);
     const [open2, setOpen2] = useState(false);
     const [error, setError] = useState('123');
     const [error2, setError2] = useState('123');
@@ -72,11 +73,12 @@ export const Header = () => {
         }else{
             setError('123');
             setLoading(true);
-            axios.post(`http://testtds.jcloud.kz/login`, {login: data.email, password : data.password}).then(res=>{
+            axios.post(`http://testtds.jcloud.kz/login/`, {username: data.email, password : data.password}).then(res=>{
                 setOpen(false)
                 setLoading(false);
                 const accessToken = res?.data?.token;
                 localStorage.setItem('STDAccessToken', accessToken);
+                setEnter(accessToken)
                 axios.defaults.headers.common['Authorization'] = `Token ${accessToken}`;
 
             }).catch(
@@ -100,26 +102,27 @@ export const Header = () => {
 
     const register = () => {
         if(!data2.email.includes('@')){
-            setError('invalid email');
+            setError2('invalid email');
         }
         else if(data2.password.length < 6){
-            setError('invalid password');
+            setError2('invalid password');
         }else if(data2.password_verification !== data2.password){
-            setError('password doesnt match');
+            setError2('password doesnt match');
         }else{
-            setError('123');
+            setError2('123');
             setLoading(true);
-            axios.post(`http://testtds.jcloud.kz/register`, {login: data.email, password : data.password}).then(res=>{
-                setOpen(false)
+            axios.post(`http://testtds.jcloud.kz/register/`, {username: data2.email, password : data2.password}).then(res=>{
+                setOpen2(false)
                 setLoading(false);
                 const accessToken = res?.data?.token;
                 localStorage.setItem('STDAccessToken', accessToken);
+                setEnter(accessToken)
                 axios.defaults.headers.common['Authorization'] = `Token ${accessToken}`;
 
             }).catch(
                 err=>{
                     setLoading(false);
-                    setError(err.message);
+                    setError2(err.message);
                 }
             )
             // setLoading(true);
@@ -141,14 +144,30 @@ export const Header = () => {
                     <Toolbar disableGutters>
                         <LogoIcon onClick={()=>{history('/')}}/>
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end', alignItems:'center'}}>
+                            {enter === null ? (
+                                <>
+                                    <Button className={'filled'} sx={{mr: 2}}
+                                            endIcon={<LoginIcon />}
+                                            onClick={()=>{setOpen(!open)}}
+                                    >
+                                        Login
 
-                            <Button className={'filled'} sx={{mr: 2}}
-                                    endIcon={<LoginIcon />}
-                                    onClick={()=>{setOpen(!open)}}
-                            >
-                                Login
+                                    </Button>
+                                    <Button className={'filled'} sx={{mr: 2}}
+                                            endIcon={<LoginIcon />}
+                                            onClick={()=>{setOpen2(!open2)}}
+                                    >
+                                        Register
 
-                            </Button>
+                                    </Button>
+                                </>
+                            ):(
+                                <Button className={'filled'} sx={{mr: 2}}
+                                onClick={()=>{localStorage.removeItem('STDAccessToken'); setEnter(null)}}
+                                >
+                                Sign out
+                                </Button>
+                            )}
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -199,71 +218,81 @@ export const Header = () => {
                                     </Button>
                                 </a>
                             ))}
-                            <Button className={'filled'} endIcon={<LoginIcon />} onClick={()=>{setOpen(!open)}} >
-                                Login
-                            </Button>
-                            <Dialog onClose={()=>{setOpen(!open)}} open={open} PaperProps={{style:{ borderRadius: 12, width:'100%'}}}>
-                                <div className='dialog-own'>
-                                    {
-                                       loading && <LinearProgress />
-                                    }
-                                    <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-                                        <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
-                                            <Typography variant='h5'>Sign in</Typography>
-                                            <span onClick={()=>{setOpen(!open); setData({email: '', password:''}); setError('123')}}><CloseIcon/></span>
+                            {enter === null ? (
+                                <>
+                                    <Button className={'filled'} endIcon={<LoginIcon />} onClick={()=>{setOpen(!open)}} >
+                                        Login
+                                    </Button>
+                                    <Dialog onClose={()=>{setOpen(!open)}} open={open} PaperProps={{style:{ borderRadius: 12, width:'100%'}}}>
+                                        <div className='dialog-own'>
+                                            {
+                                               loading && <LinearProgress />
+                                            }
+                                            <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                                                <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                                                    <Typography variant='h5'>Sign in</Typography>
+                                                    <span onClick={()=>{setOpen(!open); setData({email: '', password:''}); setError('123')}}><CloseIcon/></span>
+                                                </div>
+                                                <span style={error === '123' ? {color:'red', width:'100%', marginTop:10, opacity:0} : {color:'red', width:'100%', marginTop:10, opacity:1}}>{error}</span>
+                                                <input style={{width:'98%'}} className='textfield' placeholder='email' type='email' required onChange={changeHandler} name='email' value={data.email}/>
+                                                <input style={{width:'98%', marginTop:24}} className='textfield' placeholder='password' type='password' required onChange={changeHandler} name='password' value={data.password}/>
+                                                <FormControlLabel
+                                                    style={{marginTop:24}}
+                                                    value="start"
+                                                    control={<Checkbox />}
+                                                    label={<Typography>Remember me</Typography>}
+                                                    labelPlacement="start"
+                                                />
+                                            </div>
+
+
+                                            <div style={{display: 'flex', alignItems:'center', alignSelf:'center'}}>
+                                                <Button onClick={login} className={'filled'} sx={{padding:'4px 48px!important'}}>Enter</Button>
+                                            </div>
+
                                         </div>
-                                        <span style={error === '123' ? {color:'red', width:'100%', marginTop:10, opacity:0} : {color:'red', width:'100%', marginTop:10, opacity:1}}>{error}</span>
-                                        <input style={{width:'98%'}} className='textfield' placeholder='email' type='email' required onChange={changeHandler} name='email' value={data.email}/>
-                                        <input style={{width:'98%', marginTop:24}} className='textfield' placeholder='password' type='password' required onChange={changeHandler} name='password' value={data.password}/>
-                                        <FormControlLabel
-                                            style={{marginTop:24}}
-                                            value="start"
-                                            control={<Checkbox />}
-                                            label={<Typography>Remember me</Typography>}
-                                            labelPlacement="start"
-                                        />
-                                    </div>
+                                    </Dialog>
+                                    <Button className={'filled'} endIcon={<LoginIcon />} onClick={()=>{setOpen2(!open2)}} >
+                                        Register
+                                    </Button>
+                                    <Dialog onClose={()=>{setOpen2(!open2)}} open={open2} PaperProps={{style:{ borderRadius: 12, width:'100%'}}}>
+                                        <div className='dialog-own'>
+                                            {
+                                                loading && <LinearProgress />
+                                            }
+                                            <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                                                <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                                                    <Typography variant='h5'>Sign up</Typography>
+                                                    <span onClick={()=>{setOpen2(!open2); setData2({email: '', password:''}); setError2('123')}}><CloseIcon/></span>
+                                                </div>
+                                                <span style={error2 === '123' ? {color:'red', width:'100%', marginTop:10, opacity:0} : {color:'red', width:'100%', marginTop:10, opacity:1}}>{error2}</span>
+                                                <input style={{width:'98%'}} className='textfield' placeholder='email' type='email' required onChange={changeHandler2} name='email' value={data2.email}/>
+                                                <input style={{width:'98%', marginTop:24}} className='textfield' placeholder='password' type='password' required onChange={changeHandler2} name='password' value={data2.password}/>
+                                                <input style={{width:'98%', marginTop:24}} className='textfield' placeholder='password verification' type='password' required onChange={changeHandler2} name='password_verification' value={data2.password_verification}/>
+                                                <FormControlLabel
+                                                    style={{marginTop:24}}
+                                                    value="start"
+                                                    control={<Checkbox />}
+                                                    label={<Typography>Remember me</Typography>}
+                                                    labelPlacement="start"
+                                                />
+                                            </div>
 
 
-                                    <div style={{display: 'flex', alignItems:'center', alignSelf:'center'}}>
-                                        <Button onClick={login} className={'filled'} sx={{padding:'4px 48px!important'}}>Enter</Button>
-                                    </div>
+                                            <div style={{display: 'flex', alignItems:'center', alignSelf:'center'}}>
+                                                <Button onClick={register} className={'filled'} sx={{padding:'4px 48px!important'}}>Enter</Button>
+                                            </div>
 
-                                </div>
-                            </Dialog>
-                            <Button className={'filled'} endIcon={<LoginIcon />} onClick={()=>{setOpen2(!open2)}} >
-                                Register
-                            </Button>
-                            <Dialog onClose={()=>{setOpen2(!open2)}} open={open2} PaperProps={{style:{ borderRadius: 12, width:'100%'}}}>
-                                <div className='dialog-own'>
-                                    {
-                                        loading && <LinearProgress />
-                                    }
-                                    <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-                                        <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
-                                            <Typography variant='h5'>Sign up</Typography>
-                                            <span onClick={()=>{setOpen2(!open2); setData2({email: '', password:''}); setError2('123')}}><CloseIcon/></span>
                                         </div>
-                                        <span style={error2 === '123' ? {color:'red', width:'100%', marginTop:10, opacity:0} : {color:'red', width:'100%', marginTop:10, opacity:1}}>{error2}</span>
-                                        <input style={{width:'98%'}} className='textfield' placeholder='email' type='email' required onChange={changeHandler2} name='email' value={data2.email}/>
-                                        <input style={{width:'98%', marginTop:24}} className='textfield' placeholder='password' type='password' required onChange={changeHandler2} name='password' value={data2.password}/>
-                                        <input style={{width:'98%', marginTop:24}} className='textfield' placeholder='password verification' type='password' required onChange={changeHandler2} name='password_verification' value={data2.password}/>
-                                        <FormControlLabel
-                                            style={{marginTop:24}}
-                                            value="start"
-                                            control={<Checkbox />}
-                                            label={<Typography>Remember me</Typography>}
-                                            labelPlacement="start"
-                                        />
-                                    </div>
-
-
-                                    <div style={{display: 'flex', alignItems:'center', alignSelf:'center'}}>
-                                        <Button onClick={register} className={'filled'} sx={{padding:'4px 48px!important'}}>Enter</Button>
-                                    </div>
-
-                                </div>
-                            </Dialog>
+                                    </Dialog>
+                                </>
+                            ): (
+                                <>
+                                    <Button className={'filled'} onClick={() => {localStorage.removeItem('STDAccessToken'); setEnter(null)}} >
+                                        Sign out
+                                    </Button>
+                                </>
+                                )}
 
                         </Box>
                     </Toolbar>
