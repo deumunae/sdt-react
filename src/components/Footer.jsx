@@ -62,9 +62,7 @@ export const Footer = () => {
                                     <Typography variant="body2" sx={{mr:3}} align={'left'} >
                                         <a style={{textDecoration:'none', color:'white'}} href = "mailto:info@sdt.bid?subject = Support&body = Message">info@std.bid</a>
                                     </Typography>
-                                    <Typography variant="body2" sx={{mr:3}} align={'left'}>
-                                        <a style={{textDecoration:'none', color:'white'}} href="tel:+6583387195">+7 775 386 5386</a>
-                                    </Typography>
+
                                 </Box>
                             </div>
                         </Container>
