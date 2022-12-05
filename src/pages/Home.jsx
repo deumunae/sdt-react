@@ -10,34 +10,21 @@ import Logo3 from "../assets/companies/googleAd.png"
 import Logo4 from "../assets/companies/ttd-logo.svg"
 import Logo5 from "../assets/companies/xandr.svg"
 import Logo6 from "../assets/companies/pubmatic-black.svg"
-import {OrderForm} from "../components/OrderForm";
-import Mock from "../assets/howitworks_mock.png"
 import Transparent from "../assets/icons/transparent.svg"
-import Config from "../assets/icons/configurable.svg"
 import Trusted from "../assets/icons/trusted.svg"
 import Profitable from "../assets/icons/profit.svg"
-import Suite from "../assets/icons/suite.svg"
-import FullAd from "../assets/icons/ad.svg"
 import Gallery2 from "../components/Gallery2";
 import Hiw1 from "../assets/howitwork/hiw1.svg"
 import Hiw2 from "../assets/howitwork/hiw2.svg"
 import Hiw3 from "../assets/howitwork/hiw3.svg"
-import Hiw4 from "../assets/howitwork/hiw4.svg"
-import Hiw5 from "../assets/howitwork/hiw5.svg"
-
 import Num1 from "../assets/numbers/1.svg"
 import Num2 from "../assets/numbers/2.svg"
 import Num3 from "../assets/numbers/3.svg"
-import Num4 from "../assets/numbers/4.svg"
-import Num5 from "../assets/numbers/5.svg"
-
 import Img1 from "../assets/howitworks_decoration/1img.svg"
 import Img2 from "../assets/howitworks_decoration/2img.svg"
 import Img3 from "../assets/howitworks_decoration/3img.svg"
 import Lines from "../assets/howitworks_decoration/lines.svg"
-import event1 from '../assets/image 2.png';
 import event2 from '../assets/image 2-2.png';
-import event3 from '../assets/image 2-3.png';
 
 export const Home = () => {
     const logos = [Logo1, Logo2, Logo3, Logo4, Logo5, Logo6]
@@ -87,33 +74,6 @@ export const Home = () => {
                         </Typography>
 
 
-                        {/*<Typography*/}
-                        {/*    variant={"subtitle1"}*/}
-                        {/*    sx={{mt: 6,}}>*/}
-                        {/*    Prebid works with:*/}
-                        {/*</Typography>*/}
-
-                        {/*<Box sx={{*/}
-                        {/*    display: 'flex',*/}
-                        {/*    flexDirection:'row',*/}
-                        {/*    alignItems: 'center',*/}
-                        {/*    justifyContent: {xs: 'flex-start', md: 'center'},*/}
-                        {/*    gap: 2,*/}
-                        {/*    mt:3,*/}
-                        {/*    maxWidth: '90%',*/}
-                        {/*    overflowX: 'scroll',*/}
-                        {/*}}>*/}
-                        {/*    {logos.map((logo, index)=>(*/}
-                        {/*            <Box key={index} sx={{*/}
-                        {/*                height: '30px',*/}
-
-                        {/*            }}>*/}
-                        {/*                <img src={logo} style={{height:'100%'}} alt={"Digital marketer"}/>*/}
-                        {/*            </Box>*/}
-
-                        {/*        )*/}
-                        {/*    )}*/}
-                        {/*</Box>*/}
 
                     </Box>
                     <Typography variant={'h2'} sx={{mt:9,}} id='advantages'>
@@ -230,49 +190,13 @@ export const Home = () => {
                                     </Box>
                                 </Box>
                             </Box>
-                            {/*<Box sx={{display:'flex', justifyContent:{xs:'center', md: 'flex-end'}, width: {xs: '95%', md: '80%'}}}>*/}
-                            {/*    <Box sx={{display: 'flex', flexDirection: 'column',  justifyContent:'center', alignItems:'center', gap:'20px', width: {xs: '90%', md: '60%'}}}>*/}
-                            {/*        <Box sx={{width:'100%'}}>*/}
-                            {/*            <img style={{width: "100%"}} src={howitworks[3].img}/>*/}
-                            {/*        </Box>*/}
-                            {/*        <Box sx={{display:'flex', flexDirection:'row', gap: '10px', alignItems: 'flex-start'}}>*/}
-                            {/*            <img src={howitworks[3].num}  style={{transform: 'translateY(-40%)'}}/>*/}
-                            {/*            <Typography*/}
-                            {/*                variant={"subtitle1"}*/}
-                            {/*                align={'left'}*/}
-                            {/*                sx={{color:'#FFFFFF'}}*/}
-                            {/*            >*/}
-                            {/*                {howitworks[3].text}*/}
-                            {/*            </Typography>*/}
-                            {/*        </Box>*/}
-                            {/*    </Box>*/}
-                            {/*</Box>*/}
 
-
-                            {/*<Box sx={{display:'flex', justifyContent:{xs:'center', md: 'flex-start'}, width: {xs: '95%', md: '80%'}}}>*/}
-                            {/*    <Box sx={{display: 'flex', flexDirection: 'column',  justifyContent:'center', alignItems:'center', gap:'20px', width: {xs: '90%', md: '60%'}}}>*/}
-                            {/*        <Box sx={{width:'100%'}}>*/}
-                            {/*            <img style={{width: "100%"}} src={howitworks[4].img}/>*/}
-                            {/*        </Box>*/}
-                            {/*        <Box sx={{display:'flex', flexDirection:'row', gap: '10px', alignItems: 'flex-start'}}>*/}
-                            {/*            <img src={howitworks[4].num}  style={{transform: 'translateY(-40%)'}}/>*/}
-                            {/*            <Typography*/}
-                            {/*                variant={"subtitle1"}*/}
-                            {/*                align={'left'}*/}
-                            {/*                sx={{color:'#FFFFFF'}}*/}
-                            {/*            >*/}
-                            {/*                {howitworks[4].text}*/}
-                            {/*            </Typography>*/}
-                            {/*        </Box>*/}
-                            {/*    </Box>*/}
-                            {/*</Box>*/}
 
                         </Box>
 
                     </Box>
 
 
-                {/*<Slider/>*/}
 
                 <Box sx={{display: {xs: 'initial', md: 'none'}}}>
                     <Gallery/>
