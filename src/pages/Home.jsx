@@ -150,8 +150,10 @@ export const Home = () => {
                                         </p>
                                         <figcaption>
                                             <Button
+
                                                 className={'button-filled font-24 w700'}
                                                 sx={{padding: '8px 16px!important'}}
+
                                             >
                                                 Know More ->
                                             </Button>
@@ -165,7 +167,7 @@ export const Home = () => {
                     <Box sx={{mt: 5, backgroundColor:'#191F28', width:'100vw', display: 'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
                         <Box className={'container'} sx={{display: 'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap: 6,  mb:6, position:'relative' }}>
                             <Typography variant={'h2'} sx={{mt:5, color:'#FFFFFF'}} id='howitworks' >
-                                How it works
+                                Our Initatives
                             </Typography>
 
                             <img src={Img1} style={{position:'absolute', top:'5%', right:'10%'}} className={'decoration'}></img>

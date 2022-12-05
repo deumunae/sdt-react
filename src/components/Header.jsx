@@ -85,7 +85,7 @@ export const Header = () => {
                 err=>{
 
                     setLoading(false);
-                    setError(err.message);
+                    setError(err.data.message);
                     // if(err.response.status === 401){
                     //     handleClickOpen();
                     // }
@@ -113,7 +113,7 @@ export const Header = () => {
             setLoading(true);
             axios.post(`http://testtds.jcloud.kz/register/`, {username: data2.email, password : data2.password}).then(res=>{
                 setOpen2(false)
-                setLoading(false);
+                setLoading(true);
                 const accessToken = res?.data?.token;
                 localStorage.setItem('STDAccessToken', accessToken);
                 setEnter(accessToken)
@@ -122,7 +122,7 @@ export const Header = () => {
             }).catch(
                 err=>{
                     setLoading(false);
-                    setError2(err.message);
+                    setError2(err.data.message);
                 }
             )
             // setLoading(true);
